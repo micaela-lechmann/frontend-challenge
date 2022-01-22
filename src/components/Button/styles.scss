@@ -1,0 +1,19 @@
+@use '../../styles/variables' as *;
+
+.button {
+  border-radius: 4px;
+  font-family: $font-family-roboto;
+  cursor: pointer;
+  border: 2px solid $primary;
+  padding: 10px 20px;
+
+  &--primary {
+    background-color: $primary;
+    color: $white;
+  }
+
+  &--secondary {
+    color: $primary;
+    background-color: $white;
+  }
+}
