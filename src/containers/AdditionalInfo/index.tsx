@@ -1,13 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getColors } from 'src/api/colors';
-import Button from 'src/components/Button';
-import Checkbox from 'src/components/Checkbox';
-import Input from 'src/components/Input';
-import Select, { Option } from 'src/components/Select';
-import Spinner from 'src/components/Spinner';
-import { useUser } from 'src/context/user';
-import capitalize from 'src/utils/capitalize';
+import { getColors } from '../../api/colors';
+import Button from '../../components/Button';
+import Checkbox from '../../components/Checkbox';
+import Select, { Option } from '../../components/Select';
+import Spinner from '../../components/Spinner';
+import { useUser } from '../../context/user';
+import capitalize from '../../utils/capitalize';
 
 import './styles.scss';
 

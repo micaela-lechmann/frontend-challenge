@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from 'src/components/Button';
-import ListItem from 'src/components/ListItem';
-import { useUser } from 'src/context/user';
-import capitalize from 'src/utils/capitalize';
+import Button from '../../components/Button';
+import ListItem from '../../components/ListItem';
+import { useUser } from '../../context/user';
+import capitalize from '../../utils/capitalize';
 
 import './styles.scss';
 

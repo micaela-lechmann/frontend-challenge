@@ -3,7 +3,7 @@ import {
   ErrorBoundaryPropsWithFallback,
   ErrorBoundary as ReactErrorBoundary,
 } from 'react-error-boundary';
-import Error from 'src/containers/Error';
+import Error from '../../containers/Error';
 
 const ErrorBoundary: React.FC<ErrorBoundaryPropsWithFallback> = (props) => {
   return <ReactErrorBoundary {...props} fallback={<Error />} />;

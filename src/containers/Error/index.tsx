@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Feedback from 'src/components/Feedback';
+import Feedback from '../../components/Feedback';
 
 const Error = () => {
   return (

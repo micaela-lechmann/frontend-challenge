@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 
-import Feedback from 'src/components/Feedback';
-import { useUser } from 'src/context/user';
+import Feedback from '../../components/Feedback';
+import { useUser } from '../../context/user';
 
 const Success = () => {
   const { user } = useUser();
