@@ -2,7 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.scss';
-import './fonts/Montserrat/Montserrat-SemiBold.ttf';
-import './fonts/Roboto/Roboto-Regular.ttf';
+import './static/fonts/Montserrat/Montserrat-SemiBold.ttf';
+import './static/fonts/Roboto/Roboto-Light.ttf';
+import './static/fonts/Roboto/Roboto-Bold.ttf';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import ErrorBoundary from './components/ErrorBoundary';
+
+ReactDOM.render(
+  <ErrorBoundary>
+    <App />
+  </ErrorBoundary>,
+  document.getElementById('root')
+);
