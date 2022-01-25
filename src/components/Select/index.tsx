@@ -1,5 +1,7 @@
 import React, {
   Fragment,
+  KeyboardEvent,
+  KeyboardEventHandler,
   ReactNode,
   RefObject,
   useEffect,
@@ -10,6 +12,7 @@ import './styles.scss';
 import { ReactComponent as ArrowDownIcon } from '../../static/icons/arrow-down.svg';
 import { ReactComponent as ArrowUpIcon } from '../../static/icons/arrow-up.svg';
 import Input from '../Input';
+import clsx from 'clsx';
 
 export type Option = {
   key: string;
@@ -52,7 +55,9 @@ const Select = ({
   errorMessage,
 }: Props) => {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(-1);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const optionRef = useRef<HTMLLIElement>(null);
 
   const outsideCallback = () => setOpen(false);
 
@@ -63,17 +68,55 @@ const Select = ({
     handleSelection(value);
   };
 
+  const navigateOptions = (e: KeyboardEvent<HTMLElement>) => {
+    if (e.key === 'ArrowDown') {
+      if (active === options.length - 1) {
+        return;
+      }
+      setActive(active + 1);
+    } else if (e.key === 'ArrowUp') {
+      if (active - 1 < 0) {
+        return;
+      }
+      setActive(active - 1);
+    }
+  };
+
+  useEffect(() => {
+    optionRef.current?.focus();
+  }, [active]);
+
+  const onListboxKeyDown = (e: KeyboardEvent<HTMLElement>) => {
+    if (e.key === 'Enter') {
+      setOpen(!open);
+    } else {
+      navigateOptions(e);
+      e.currentTarget.blur();
+    }
+  };
+
+  const onOptionKeyDown = (e: KeyboardEvent<HTMLElement>, value: Option) => {
+    if (e.key === 'Enter') {
+      onSelection(value);
+    } else {
+      navigateOptions(e);
+    }
+  };
+
   return (
     <div className='select' ref={wrapperRef}>
-      <div onClick={() => setOpen(!open)}>
+      <div
+        tabIndex={0}
+        aria-haspopup='listbox'
+        onKeyDown={onListboxKeyDown}
+        onClick={() => setOpen(!open)}
+      >
         <Input
           type='select'
           value={selected?.value}
           label={label}
           handleChange={() => {}}
           name={name}
-          tabIndex={0}
-          aria-haspopup='listbox'
           errorMessage={errorMessage}
         />
       </div>
@@ -81,13 +124,19 @@ const Select = ({
         {open ? <ArrowUpIcon /> : <ArrowDownIcon />}
       </div>
       {open ? (
-        <ul role='listbox' className='select__options' tabIndex={-1}>
-          {options.map((option) => (
+        <ul role='listbox' className='select__options'>
+          {options.map((option, index) => (
             <li
-              className='select__option'
+              className={clsx('select__option', {
+                'select__option--active': active === index,
+              })}
               onClick={() => onSelection(option)}
               role='option'
               aria-selected={selected.key === option.key}
+              tabIndex={-1}
+              onKeyDown={(e) => onOptionKeyDown(e, option)}
+              key={option.key}
+              ref={active === index ? optionRef : null}
             >
               {option.value}
             </li>

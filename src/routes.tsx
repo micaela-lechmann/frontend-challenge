@@ -52,9 +52,6 @@ const DefinedRoutes = () => (
       }
       path='/error'
     />
-    {/* <Route component={() => <AComponent />} exact path='/a' />
-      <Route component={() => <BComponent />} exact path='/b' />
-      <Route component={() => <CComponent />} exact path='/c' /> */}
   </Routes>
 );
 
