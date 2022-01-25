@@ -7,10 +7,13 @@ import './static/fonts/Roboto/Roboto-Light.ttf';
 import './static/fonts/Roboto/Roboto-Bold.ttf';
 
 import ErrorBoundary from './components/ErrorBoundary';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <ErrorBoundary>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </ErrorBoundary>,
   document.getElementById('root')
 );
