@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { submitForm } from '../../api/submit';
 import Button from '../../components/Button';
 import ListItem from '../../components/ListItem';
+import Loader from '../../components/Loader';
 import { useUser } from '../../context/user';
 import capitalize from '../../utils/capitalize';
 
@@ -11,8 +13,16 @@ const Confirmation = () => {
   const navigate = useNavigate();
   const { user } = useUser();
 
-  const onSubmit = () => {
-    navigate('/success');
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = async () => {
+    setLoading(true);
+    try {
+      await submitForm(user);
+      navigate('/success');
+    } catch (e) {
+      navigate('/error');
+    }
   };
 
   const onBack = () => {
@@ -21,6 +31,7 @@ const Confirmation = () => {
 
   return (
     <div className='confirmation'>
+      <Loader show={loading} />
       <h2 className='confirmation__title'>Confirmation</h2>
       <div className='confirmation__list'>
         <ListItem label='First name' description={user?.name} />

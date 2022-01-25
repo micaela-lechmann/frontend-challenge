@@ -1,16 +1,23 @@
 import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Feedback from '../../components/Feedback';
-import { useUser } from '../../context/user';
+import { UserStore, useUser } from '../../context/user';
 
 const Success = () => {
-  const { user } = useUser();
-  console.log(user);
+  const navigate = useNavigate();
+  const { setUser } = useUser();
+
+  const onClick = () => {
+    setUser({} as UserStore);
+    navigate('/');
+  };
+
   return (
     <Feedback
       type='success'
       description='You should receive a confirmation email soon.'
-      onClick={() => {}}
+      onClick={onClick}
     />
   );
 };
