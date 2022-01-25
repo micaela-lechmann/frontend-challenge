@@ -1,17 +1,28 @@
-import React, { Fragment, RefObject, useEffect, useRef, useState } from 'react';
+import React, {
+  Fragment,
+  ReactNode,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import './styles.scss';
 import { ReactComponent as ArrowDownIcon } from '../../static/icons/arrow-down.svg';
 import { ReactComponent as ArrowUpIcon } from '../../static/icons/arrow-up.svg';
+import Input from '../Input';
 
-type Option = {
+export type Option = {
+  key: string;
   value: string;
-  description: string;
 };
 
 type Props = {
-  value: Option;
   options: Option[];
-  handleSelection: (value: Option) => void;
+  label: string;
+  name: string;
+  selected: Option;
+  errorMessage?: ReactNode;
+  handleSelection: (selected: Option) => void;
 };
 
 const useOutsideCallback = (
@@ -32,9 +43,15 @@ const useOutsideCallback = (
   }, [ref, callback]);
 };
 
-const Select = ({ value, handleSelection, options }: Props) => {
+const Select = ({
+  name,
+  label,
+  options,
+  selected,
+  handleSelection,
+  errorMessage,
+}: Props) => {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(value);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const outsideCallback = () => setOpen(false);
@@ -42,27 +59,37 @@ const Select = ({ value, handleSelection, options }: Props) => {
   useOutsideCallback(wrapperRef, outsideCallback);
 
   const onSelection = (value: Option) => {
-    setSelected(value);
     setOpen(false);
     handleSelection(value);
   };
 
   return (
     <div className='select' ref={wrapperRef}>
-      <div
-        className='select__value'
-        id='displayValue'
-        onClick={() => setOpen(!open)}
-      >
-        <span>{selected.description}</span>
-
+      <div onClick={() => setOpen(!open)}>
+        <Input
+          type='select'
+          value={selected?.value}
+          label={label}
+          handleChange={() => {}}
+          name={name}
+          tabIndex={0}
+          aria-haspopup='listbox'
+          errorMessage={errorMessage}
+        />
+      </div>
+      <div className='select__icon'>
         {open ? <ArrowUpIcon /> : <ArrowDownIcon />}
       </div>
       {open ? (
-        <ul className='select__options' id='selectContainer'>
+        <ul role='listbox' className='select__options' tabIndex={-1}>
           {options.map((option) => (
-            <li className='select__option' onClick={() => onSelection(option)}>
-              {option.description}
+            <li
+              className='select__option'
+              onClick={() => onSelection(option)}
+              role='option'
+              aria-selected={selected.key === option.key}
+            >
+              {option.value}
             </li>
           ))}
         </ul>
