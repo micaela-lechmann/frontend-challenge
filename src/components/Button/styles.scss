@@ -6,6 +6,7 @@
   cursor: pointer;
   border: 2px solid $primary;
   padding: 10px 20px;
+  font-weight: $bold;
 
   &--primary {
     background-color: $primary;
