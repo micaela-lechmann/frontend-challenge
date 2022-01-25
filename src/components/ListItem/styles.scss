@@ -1,0 +1,38 @@
+@use '../../styles/variables' as *;
+
+.list-item {
+  display: flex;
+  font-family: $font-family-roboto;
+  color: $black;
+  width: 100%;
+  justify-content: space-between;
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 7px;
+    width: 100%;
+    height: 0;
+    line-height: 0;
+    border-bottom: 2px dotted $gray;
+  }
+
+  &__label {
+    margin: 0;
+    background: $white;
+    padding: 0 6px 1px 0;
+    z-index: 1;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  &__description {
+    margin: 0;
+    background: $white;
+    padding: 0 0 1px 6px;
+    z-index: 1;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
