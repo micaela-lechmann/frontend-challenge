@@ -4,7 +4,7 @@ import { getColors } from '../../api/colors';
 import Button from '../../components/Button';
 import Checkbox from '../../components/Checkbox';
 import Select, { Option } from '../../components/Select';
-import Spinner from '../../components/Spinner';
+import Loader from '../../components/Loader';
 import { useUser } from '../../context/user';
 import capitalize from '../../utils/capitalize';
 
@@ -57,7 +57,7 @@ const AdditionalInfo = () => {
 
   return (
     <div role='form' className='additional-info'>
-      <Spinner show={loading} />
+      <Loader show={loading} />
       <h2 className='additional-info__title'>Additional info</h2>
       <Select
         name='favorite-color'

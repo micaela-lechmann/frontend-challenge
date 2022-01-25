@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Spinner from './components/Spinner';
+import Loader from './components/Loader';
 
 const PersonalInfoComponent = lazy(() => import('./containers/PersonalInfo'));
 const AdditionalInfoComponent = lazy(
@@ -14,7 +14,7 @@ const DefinedRoutes = () => (
   <Routes>
     <Route
       element={
-        <Suspense fallback={<Spinner show />}>
+        <Suspense fallback={<Loader show />}>
           <PersonalInfoComponent />
         </Suspense>
       }
@@ -22,7 +22,7 @@ const DefinedRoutes = () => (
     />
     <Route
       element={
-        <Suspense fallback={<Spinner show />}>
+        <Suspense fallback={<Loader show />}>
           <AdditionalInfoComponent />
         </Suspense>
       }
@@ -30,7 +30,7 @@ const DefinedRoutes = () => (
     />
     <Route
       element={
-        <Suspense fallback={<Spinner show />}>
+        <Suspense fallback={<Loader show />}>
           <ConfirmationComponent />
         </Suspense>
       }
@@ -38,7 +38,7 @@ const DefinedRoutes = () => (
     />
     <Route
       element={
-        <Suspense fallback={<Spinner show />}>
+        <Suspense fallback={<Loader show />}>
           <SuccessComponent />
         </Suspense>
       }
@@ -46,7 +46,7 @@ const DefinedRoutes = () => (
     />
     <Route
       element={
-        <Suspense fallback={<Spinner show />}>
+        <Suspense fallback={<Loader show />}>
           <ErrorComponent />
         </Suspense>
       }
