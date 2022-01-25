@@ -1,18 +1,14 @@
-import React, {
-  ChangeEvent,
-  InputHTMLAttributes,
-  ReactNode,
-  useState,
-} from 'react';
+import React, { ChangeEvent, HTMLInputTypeAttribute, ReactNode } from 'react';
 import clsx from 'clsx';
 
 import './styles.scss';
 
-type InputProps = {
+type Props = {
   label: string;
-  value: string;
-  type: 'input' | 'textarea';
+  type: HTMLInputTypeAttribute;
+  name: string;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  value: string;
   errorMessage?: ReactNode;
 } & React.HTMLAttributes<HTMLInputElement>;
 
@@ -20,26 +16,26 @@ const Input = ({
   value,
   handleChange,
   label,
+  name,
   errorMessage,
   type,
-  ...props
-}: InputProps) => {
-  const [inputValue, setInputValue] = useState(value);
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-    handleChange(e);
-  };
-
+}: Props) => {
   return (
-    <div className={clsx('input', props.className)}>
+    <div className={'input'}>
       <input
         type={type}
-        className='input__field'
-        value={inputValue}
-        placeholder={label}
-        onChange={onChange}
+        className={clsx('input__field', {
+          'input__field--error': !!errorMessage,
+          'input__field--filled': !!value,
+        })}
+        value={value}
+        onChange={handleChange}
+        id={name}
+        disabled={type === 'select'}
       />
+      <label className='input__label' htmlFor={name}>
+        {label}
+      </label>
       {errorMessage && (
         <span className='input__error-message'>{errorMessage}</span>
       )}
