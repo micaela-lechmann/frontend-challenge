@@ -1,0 +1,28 @@
+@use '../../styles/variables' as *;
+
+.confirmation {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &__title {
+    margin: 0 0 20px;
+    font-family: $font-family-montserrat;
+    padding: 32px 20px 20px;
+    border-bottom: 1px solid #f1f1f1;
+  }
+
+  &__list {
+    margin: 0 20px;
+
+    > .list-item {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 20px;
+  }
+}
