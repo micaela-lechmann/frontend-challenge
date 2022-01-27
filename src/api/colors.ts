@@ -1,4 +1,5 @@
-import ky from 'ky';
+import axios from 'axios';
 
-export const getColors = () =>
-  ky.get('http://localhost:3001/api/colors').json<string[]>();
+const getColors = () => axios.get<string[]>('http://localhost:3001/api/colors');
+
+export default getColors;
