@@ -1,4 +1,4 @@
-## Instructions
+## Upgrade challenge - Micaela Lechmann
 
 Application develop for Upgrade frontend challenge.
 
