@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { ReactComponent as SuccessIcon } from '../../static/icons/success.svg';
 import { ReactComponent as ErrorIcon } from '../../static/icons/error.svg';
 import Button from '../Button';

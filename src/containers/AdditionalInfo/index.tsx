@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { getColors } from '../../api/colors';
+import { useNavigate } from 'react-router-dom';
+
+import getColors from '../../api/colors';
 import Button from '../../components/Button';
 import Checkbox from '../../components/Checkbox';
 import Select, { Option } from '../../components/Select';
@@ -41,7 +42,7 @@ const AdditionalInfo = () => {
 
   const fetchColors = useCallback(async () => {
     try {
-      const colorKeys = await getColors();
+      const { data: colorKeys } = await getColors();
 
       const colors = colorKeys.map((key) => ({ key, value: capitalize(key) }));
       setColors(colors);
@@ -53,7 +54,7 @@ const AdditionalInfo = () => {
 
   useEffect(() => {
     fetchColors();
-  });
+  }, [fetchColors]);
 
   return (
     <div role='form' className='additional-info'>
