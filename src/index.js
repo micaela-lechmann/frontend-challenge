@@ -10,10 +10,10 @@ import ErrorBoundary from './components/ErrorBoundary';
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
-  <ErrorBoundary>
-    <BrowserRouter>
+  <BrowserRouter>
+    <ErrorBoundary>
       <App />
-    </BrowserRouter>
-  </ErrorBoundary>,
+    </ErrorBoundary>
+  </BrowserRouter>,
   document.getElementById('root')
 );
