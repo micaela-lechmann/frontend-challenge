@@ -7,6 +7,8 @@ import React, {
   useState,
 } from 'react';
 
+export type ProviderProps = { children: ReactNode; initialValue?: UserStore };
+
 export type UserStore = {
   name: string;
   email: string;
@@ -19,8 +21,16 @@ const UserContext = createContext<
   { user: UserStore; setUser: Dispatch<SetStateAction<UserStore>> } | undefined
 >(undefined);
 
-const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState({} as UserStore);
+const UserProvider = ({ children, initialValue }: ProviderProps) => {
+  const [user, setUser] = useState(
+    initialValue ?? {
+      name: '',
+      email: '',
+      password: '',
+      color: '',
+      terms: false,
+    }
+  );
   const value = { user, setUser };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
