@@ -7,10 +7,10 @@ type Props = {
   label: string;
   type: HTMLInputTypeAttribute;
   name: string;
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   value: string;
+  handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   errorMessage?: ReactNode;
-} & React.HTMLAttributes<HTMLInputElement>;
+} & React.InputHTMLAttributes<HTMLInputElement>;
 
 const Input = ({
   value,
@@ -19,6 +19,7 @@ const Input = ({
   name,
   errorMessage,
   type,
+  ...props
 }: Props) => {
   return (
     <div className={'input'}>
@@ -31,7 +32,7 @@ const Input = ({
         value={value}
         onChange={handleChange}
         id={name}
-        disabled={type === 'select'}
+        {...props}
       />
       <label className='input__label' htmlFor={name}>
         {label}

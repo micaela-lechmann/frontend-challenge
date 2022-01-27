@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { KeyboardEvent } from 'react';
 
 import { ReactComponent as CheckedIcon } from '../../static/icons/checked.svg';
 
@@ -12,6 +12,12 @@ type Props = {
 };
 
 const Checkbox = ({ value, text, onClick }: Props) => {
+  const onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
+    if (e.key === 'Enter') {
+      onClick(!value);
+    }
+  };
+
   return (
     <div className='checkbox'>
       <div
@@ -23,6 +29,7 @@ const Checkbox = ({ value, text, onClick }: Props) => {
         aria-label='checkbox'
         aria-checked={value}
         onClick={() => onClick(!value)}
+        onKeyDown={onKeyDown}
       >
         {value && <CheckedIcon />}
       </div>

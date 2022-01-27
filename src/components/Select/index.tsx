@@ -1,18 +1,19 @@
 import React, {
   Fragment,
   KeyboardEvent,
-  KeyboardEventHandler,
   ReactNode,
   RefObject,
   useEffect,
   useRef,
   useState,
 } from 'react';
+import clsx from 'clsx';
+
 import './styles.scss';
 import { ReactComponent as ArrowDownIcon } from '../../static/icons/arrow-down.svg';
 import { ReactComponent as ArrowUpIcon } from '../../static/icons/arrow-up.svg';
+import { ReactComponent as CheckedIcon } from '../../static/icons/checked.svg';
 import Input from '../Input';
-import clsx from 'clsx';
 
 export type Option = {
   key: string;
@@ -109,15 +110,19 @@ const Select = ({
         tabIndex={0}
         aria-haspopup='listbox'
         onKeyDown={onListboxKeyDown}
-        onClick={() => setOpen(!open)}
+        onClick={() => {
+          setOpen(!open);
+        }}
+        className='select__value'
+        data-testid='select'
       >
         <Input
-          type='select'
+          type='text'
           value={selected?.value}
           label={label}
-          handleChange={() => {}}
           name={name}
           errorMessage={errorMessage}
+          disabled
         />
       </div>
       <div className='select__icon'>
@@ -128,7 +133,7 @@ const Select = ({
           {options.map((option, index) => (
             <li
               className={clsx('select__option', {
-                'select__option--active': active === index,
+                'select__option--selected': selected.key === option.key,
               })}
               onClick={() => onSelection(option)}
               role='option'
@@ -139,6 +144,7 @@ const Select = ({
               ref={active === index ? optionRef : null}
             >
               {option.value}
+              {selected.key === option.key && <CheckedIcon />}
             </li>
           ))}
         </ul>
